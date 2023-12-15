@@ -1,6 +1,6 @@
 <template>
   <div>
-    <header class="shadow-sm bgg-white">
+    <header class="shadow-sm bg-white">
       <nav class="container mx-auto p-4">
         <ul class="flex items-center gap-10">
           <li class="font-bold text-[#12b488]">

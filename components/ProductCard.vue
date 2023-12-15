@@ -2,6 +2,7 @@
   <div class="card text-center flex flex-col justify-between">
     <img :src="product.image" alt="product thumb" class="thumb" />
     <p class="font-bold text-gray-500 m-4 truncate">{{ product.title }}</p>
+    <p class="text-gray-500">Price: {{ product.price }}$</p>
     <NuxtLink :to="`/products/${product.id}`">
       <p class="btn my-4">View Details</p>
     </NuxtLink>
@@ -13,7 +14,7 @@
       }}</span>
       <button class="btn px-5" @click="increment">+</button>
     </div>
-    <div v-else >
+    <div v-else>
       <button @click="deleteProduct" class="btn w-full">Delete</button>
     </div>
   </div>
@@ -24,7 +25,7 @@ import { useStorage } from "@vueuse/core";
 
 const { product } = defineProps(["product"]);
 
-const products = useStorage("cart", '[]'); // Создаем карт в локал сторедж с помощью vueuse 
+const products = useStorage("cart", "[]"); // Создаем карт в локал сторедж с помощью vueuse
 
 const parsedProducts = computed(() => JSON.parse(products?.value));
 
@@ -57,22 +58,21 @@ const isAdded = computed(() => {
   return false;
 });
 
-
-
 function addProduct() {
   const productWithAmount = {
     ...product,
     amount: amount.value,
   };
-  
+
   if (parsedProducts.value.length) {
-    products.value = JSON.stringify([...parsedProducts.value, productWithAmount])
+    products.value = JSON.stringify([
+      ...parsedProducts.value,
+      productWithAmount,
+    ]);
   } else {
-    products.value = JSON.stringify([productWithAmount])
+    products.value = JSON.stringify([productWithAmount]);
   }
 }
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>
