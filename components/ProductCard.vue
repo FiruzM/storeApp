@@ -5,7 +5,7 @@
     <NuxtLink :to="`/products/${product.id}`">
       <p class="btn my-4">View Details</p>
     </NuxtLink>
-    <div v-if="!isAdded" class="flex items-center gap-5">
+    <div v-if="!isAdded" class="flex items-center justify-between">
       <button class="btn px-8" @click="addProduct">Add</button>
       <button class="btn px-5" @click="decrement">-</button>
       <span class="border px-8 py-1 rounded-lg border-[#12b488]">{{
@@ -13,8 +13,8 @@
       }}</span>
       <button class="btn px-5" @click="increment">+</button>
     </div>
-    <div v-else>
-      <button @click="deleteProduct" class="btn">Delete</button>
+    <div v-else >
+      <button @click="deleteProduct" class="btn w-full">Delete</button>
     </div>
   </div>
 </template>
@@ -23,7 +23,8 @@
 import { useStorage } from "@vueuse/core";
 
 const { product } = defineProps(["product"]);
-const products = useStorage("cart", '[]');
+
+const products = useStorage("cart", '[]'); // Создаем карт в локал сторедж с помощью vueuse 
 
 const parsedProducts = computed(() => JSON.parse(products?.value));
 
@@ -35,7 +36,7 @@ function increment() {
 
 function decrement() {
   if (amount.value == 1) {
-    return (amount.value = 0);
+    return (amount.value = 1);
   }
   amount.value--;
 }
@@ -56,9 +57,7 @@ const isAdded = computed(() => {
   return false;
 });
 
-watchEffect(() => {
-  console.log(isAdded.value);
-});
+
 
 function addProduct() {
   const productWithAmount = {
@@ -74,4 +73,6 @@ function addProduct() {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+
+</style>
